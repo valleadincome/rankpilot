@@ -10,18 +10,10 @@ export default async function handler(req, res) {
       headers: {
         "Content-Type": "application/json",
         "x-api-key": process.env.ANTHROPIC_API_KEY,
-        "anthropic-version": "2023-06-01"
+        "anthropic-version": "2023-06-01",
+        "anthropic-dangerous-direct-browser-access": "false",
       },
-      body: JSON.stringify({
-        model: "claude-3-5-sonnet-latest",
-        max_tokens: 2000,
-        messages: [
-          {
-            role: "user",
-            content: JSON.stringify(req.body)
-          }
-        ]
-      })
+      body: JSON.stringify(req.body),
     });
 
     const data = await response.json();

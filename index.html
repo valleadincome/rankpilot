@@ -459,7 +459,12 @@
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
-    if (!res.ok) throw new Error(`Request failed (${res.status})`);
+    if (!res.ok) {
+    const error = await res.text();
+    alert(error);
+    throw new Error(error);
+  }
+    // if (!res.ok) throw new Error(`Request failed (${res.status})`);
     const data = await res.json();
     return (data.content || [])
       .map(block => (block.type === "text" ? block.text : ""))
